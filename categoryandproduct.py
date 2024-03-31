@@ -9,7 +9,8 @@ class Category():
         self.description = description
         self.product = product
         Category.total_categories += 1
-        Category.total_unique_products += len(product)
+        unique_products = set(product)
+        Category.total_unique_products += len(unique_products)
 
 
 
