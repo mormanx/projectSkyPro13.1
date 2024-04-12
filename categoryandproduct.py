@@ -13,6 +13,14 @@ class Category():
         unique_products = set(self.__products)
         Category.total_unique_products = len(unique_products)
 
+    def __str__(self):
+        return f'{self.name},  количество продуктов:  {len(self)} шт.'
+
+    def __len__(self):
+        return sum(product.count_in_stock for product in self.__products)
+
+
+
 
     def add_product(self, product):
         self.__products.append(product)
@@ -42,6 +50,15 @@ class Product():
         self.description = description
         self.__price = float(price)
         self.count_in_stock = int(count_in_stock)
+
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.count_in_stock}шт.'
+
+    def __add__(self, other):
+        if isinstance(other, Product):
+            return self.price * self.count_in_stock + other.price * other.count_in_stock
+        else:
+            raise TypeError('Error')
     @classmethod
     def create_product(cls, **kwargs):
         return cls(**kwargs)
@@ -72,3 +89,8 @@ print(f"Новая цена для {two.name}: {two.price}")
 
 two.price = -5.0  # Попытка установить некорректное значение цены
 print(f"Новая цена для {two.name}: {two.price}")
+
+print(one)
+print(two)
+result = two + four
+print(result)
