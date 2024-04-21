@@ -58,7 +58,7 @@ class Product():
         return f'{self.name}, {self.price} руб. Остаток: {self.count_in_stock}шт.'
 
     def __add__(self, other):
-        if isinstance(other, type(stlf)):
+        if isinstance(other, Product):
             return self.price * self.count_in_stock + other.price * other.count_in_stock
         else:
             raise TypeError('Error')
@@ -84,7 +84,11 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
-
+    def __add__(self, other):
+        if isinstance(other, Smartphone):
+            return self.price * self.count_in_stock + other.price * other.count_in_stock
+        else:
+            raise TypeError("Unsupported operand type for +")
 
 
 class LawnGrass(Product):
@@ -93,6 +97,12 @@ class LawnGrass(Product):
         self.manufacturer = manufacturer
         self.germination_time = germination_time
         self.color = color
+
+    def __add__(self, other):
+        if isinstance(other, LawnGrass):
+            return self.price * self.count_in_stock + other.price * other.count_in_stock
+        else:
+            raise TypeError("Unsupported operand type for +")
 
 
 # Создание продуктов
