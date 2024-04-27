@@ -1,3 +1,33 @@
+from abc import ABC, abstractmethod
+
+class AbstractProduct(ABC):
+    @abstractmethod
+    def __init__(self, name, description, price, count_in_stock):
+        self.name = name
+        self.descripption = description
+        self.price = price
+        self.count_in_stock = count_in_stock
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+class LogCreationMixin:
+    def __repr__(self):
+
+        attribute_strings = []
+
+        for attribute_name, attribute_value in self.__dict__.items():
+            attribute_string = f'{attribute_name} = {attribute_value!r}'
+            attribute_strings.append(attribute_string)
+
+        attributes = ', '.join(attribute_strings)
+
+
+        return f'{self.__class__.__name__} ({attributes})'
+
+
+
 class Category():
     name: str
     description: str
@@ -43,12 +73,13 @@ class Category():
 
 
 
-class Product():
+class Product(AbstractProduct, LogCreationMixin):
     name: str
     description: str
     __price: float
     count_in_stock = int
     def __init__(self, name, description, price, count_in_stock):
+        super().__init__(name, description, price, count_in_stock)
         self.name = name
         self.description = description
         self.__price = float(price)
