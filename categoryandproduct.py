@@ -42,6 +42,7 @@ class Category():
         Category.total_categories += 1
         unique_products = set(self.__products)
         Category.total_unique_products = len(unique_products)
+        print(repr(self))
 
     def __str__(self):
         return f'{self.name},  количество продуктов:  {len(self)} шт.'
@@ -84,6 +85,7 @@ class Product(AbstractProduct, LogCreationMixin):
         self.description = description
         self.__price = float(price)
         self.count_in_stock = int(count_in_stock)
+        print(repr(self))
 
     def __str__(self):
         return f'{self.name}, {self.price} руб. Остаток: {self.count_in_stock}шт.'
@@ -115,6 +117,7 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
+
     def __add__(self, other):
         if isinstance(other, Smartphone):
             return self.price * self.count_in_stock + other.price * other.count_in_stock
