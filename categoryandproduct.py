@@ -7,6 +7,8 @@ class AbstractProduct(ABC):
         self.descripption = description
         self.price = price
         self.count_in_stock = count_in_stock
+        if count_in_stock == 0:
+            raise ValueError('ValueError')
 
     @abstractmethod
     def __add__(self, other):
@@ -69,6 +71,13 @@ class Category():
             product_info.append(info)
         return '\n'.join(product_info)
 
+
+    def average_price(self):
+        total_price = sum(product.price for product in self.__products)
+        try:
+            return total_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0
 
 
 
