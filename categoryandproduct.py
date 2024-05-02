@@ -57,6 +57,8 @@ class Category():
 
     def add_product(self, product):
         if isinstance(product, Product):
+            if product.count_in_stock = 0:
+                raise ValueError("Товар с нулевым количеством не может быть добавлен")
             self.__products.append(product)
             unique_products = set(self.__products)
             Category.total_unique_products = len(unique_products)
